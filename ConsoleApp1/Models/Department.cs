@@ -10,12 +10,12 @@ namespace ConsoleApp1.Models
     class Department
     {
         public string Name { get; set; }
-        public static int WorkerLimit { get; set; }
+        public int WorkerLimit { get; set; }
         public double SalaryLimit { get; set; }
-        public double OrtaSal;
-        public Employee[] Employees = new Employee[0];
 
-        //public double OrtaSal;
+        public int iscisayi;
+
+        public Employee[] Employees = new Employee[0];
 
 
 
@@ -24,22 +24,32 @@ namespace ConsoleApp1.Models
             Name = name;
             WorkerLimit = workerlimit;
             SalaryLimit = salarylimit;
-
         }
         public double CalcSalaryAverage()
         {
+            double OrtaSal = 0;
             foreach (Employee item in Employees)
             {
-                OrtaSal += item.Salary;
+                if (item!= null && item.DepartmentName == Name)
+                {
+                    OrtaSal += item.Salary;
+                }
             }
             return OrtaSal;
         }
 
         public override string ToString()
         {
+            iscisayi = Employees.Length;
+            foreach (Employee item in Employees)
+            {
+                if (item == null)
+                {
+                    iscisayi--;
+                }
+            }
             return $"Departamentin adi : {Name}\n" +
-                $"Iscilerin sayi : {Employees.Length}\n" +
-                $"{OrtaSal}\n---------------";
+                $"Iscilerin sayi : {iscisayi}";
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ConsoleApp1.Services
         {
             foreach (Department item in _Departments)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"{item}\nOrtalama maas : {item.CalcSalaryAverage()}\n----------------------");
             }
         }
         public void EditDepartaments(string oldName, string newName)
@@ -59,23 +59,15 @@ namespace ConsoleApp1.Services
             {
                 foreach (Employee item2 in item.Employees)
                 {
-                    Console.WriteLine(item2);
+                    if (item2 != null)
+                    {
+                        Console.WriteLine(item2);
+                    }
                 }
             }
         }
         public Employee[] GetEmployeesByDepartment(string departmentName)
         {
-            //foreach (Department item in _Departments)
-            //{
-            //    foreach (Employee item2 in item.Employees)
-            //    {
-            //        if (item2.DepartmentName.ToLower() == item.Name.ToLower())
-            //        {
-            //            Console.WriteLine(item2);
-            //        }
-            //    }
-            //}
-
             Employee[] employee = new Employee[0];
             foreach (Department item in _Departments)
             {
@@ -92,14 +84,33 @@ namespace ConsoleApp1.Services
 
 
         }
-
         public void RemoveEmployee(string no, string departmentname)
         {
-
+            foreach (Department item in Departments)
+            {
+                for (int i = 0; i < item.Employees.Length; i++)
+                {
+                    if (item.Employees[i] != null && item.Employees[i].No.ToLower() == no.ToLower() && item.Employees[i].DepartmentName.ToLower() == departmentname.ToLower())
+                    {
+                        item.Employees[i] = null;
+                        return;
+                    }
+                }
+            }
         }
-        public void EditEmploye(string no, string fullname, string position, double salary)
+        public void EditEmploye(string no, string position, double salary)
         {
-
+            foreach (Department item in Departments)
+            {
+                foreach (Employee item2 in item.Employees)
+                {
+                    if (item2.No.ToLower() == no.ToLower())
+                    {
+                        item2.Position = position;
+                        item2.Salary = salary;
+                    }
+                }
+            }
         }
     }
 }
