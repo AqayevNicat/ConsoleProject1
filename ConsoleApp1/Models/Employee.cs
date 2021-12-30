@@ -10,7 +10,6 @@ namespace ConsoleApp1.Models
     class Employee
     {
         public static int Count = 1000;
-        public string noName;
         public string No { get; set; }
         public string FullName { get; set; }
         public string Position { get; set; }
@@ -19,13 +18,12 @@ namespace ConsoleApp1.Models
 
         public Employee(string fullname, string position, double salary, string departmentName)
         {
-            Count++;
             FullName = fullname;
             DepartmentName = departmentName;
             Position = position;
             Salary = salary;
-            noName = DepartmentName.Substring(0, 2).ToUpper();
-            No = noName + Count;
+            Count++;
+            No = DepartmentName.Substring(0, 2).ToUpper() + Count;
         }
         public override string ToString()
         {
@@ -33,7 +31,7 @@ namespace ConsoleApp1.Models
                 $"FullName : {FullName}\n" +
                 $"Position : {Position}\n" +
                 $"Salary : {Salary}\n" +
-                $"Department : {DepartmentName}\n";
+                $"Department : {DepartmentName}\n-----------------";
         }
     }
 }

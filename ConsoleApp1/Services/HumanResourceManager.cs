@@ -34,17 +34,17 @@ namespace ConsoleApp1.Services
         {
             foreach (Department item in _Departments)
             {
-                    foreach (Employee item2 in item.Employees)
+                foreach (Employee item2 in item.Employees)
+                {
+                    if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
                     {
-                        if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
+                        item2.DepartmentName = newName;
+
+                        if (item.Name.ToLower() == oldName)
                         {
-                            item2.DepartmentName = newName;
-                            item2.noName = item2.DepartmentName.Substring(0, 2).ToUpper();
+                            item.Name = newName;
                         }
                     }
-                if (item != null && item.Name.ToLower()==oldName)
-                {
-                    item.Name = newName;
                 }
             }
         }
@@ -61,34 +61,37 @@ namespace ConsoleApp1.Services
                 }
             }
         }
-        public void GetEmployees()
+        public Employee[] GetEmployees()
         {
+            Employee[] employees = new Employee[0];
             foreach (Department item in _Departments)
             {
                 foreach (Employee item2 in item.Employees)
                 {
                     if (item2 != null)
                     {
-                        Console.WriteLine(item2);
+                        Array.Resize(ref employees, employees.Length + 1);
+                        employees[employees.Length - 1] = item2;
                     }
                 }
             }
+            return employees;
         }
         public Employee[] GetEmployeesByDepartment(string departmentName)
         {
-            Employee[] employee = new Employee[0];
+            Employee[] employees = new Employee[0];
             foreach (Department item in _Departments)
             {
                 foreach (Employee item2 in item.Employees)
                 {
                     if (item2 != null && item.Name == departmentName)
                     {
-                        Array.Resize(ref employee, employee.Length + 1);
-                        employee[employee.Length - 1] = item2;
+                        Array.Resize(ref employees, employees.Length + 1);
+                        employees[employees.Length - 1] = item2;
                     }
                 }
             }
-            return employee;
+            return employees;
         }
         public void RemoveEmployee(string no, string departmentname)
         {
