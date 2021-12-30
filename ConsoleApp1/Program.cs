@@ -183,6 +183,7 @@ namespace ConsoleApp1
             }
             Console.WriteLine("Departmentin yeni adini daxil edin :");
             string newName = Console.ReadLine();
+           
             humanResourceManager.EditDepartaments(oldName,newName);
         }
         #endregion
@@ -261,15 +262,14 @@ namespace ConsoleApp1
             {
                 foreach (Employee item2 in item.Employees)
                 {
-                    //if (department.ToLower() == item.Name.ToLower() && item.Employees.Length > Department.WorkerLimit)
-                    //{
-                    //    Console.WriteLine($"\nDepartament tam doludur.Isci elave ede bilmezsiniz...");
-                    //    return;
-                    //}
-
-                    if(department.ToLower() == item.Name.ToLower() && item.iscisayi > item.WorkerLimit)
+                    if (department.ToLower() == item.Name.ToLower() && item.iscisayi >= item.WorkerLimit)
                     {
                         Console.WriteLine($"\nDepartament tam doludur.Isci elave ede bilmezsiniz...");
+                        return;
+                    }
+                    if (department.ToLower() == item.Name.ToLower() && ((item.OrtaSal + salary) > item.SalaryLimit))
+                    {
+                        Console.WriteLine($"\nElave etdiyiniz maas departamentin odeye bileceyi maas ortalamasini otur.Isci elave ede bilmezsiniz...");
                         return;
                     }
                 }
@@ -278,13 +278,29 @@ namespace ConsoleApp1
         }
         static void GetEmployees(ref HumanResourceManager humanResourceManager)
         {
+            foreach (Department item in humanResourceManager.Departments)
+            {
+                if(item.Employees.Length == 0)
+                {
+                    Console.WriteLine("Hec bir isci elave olunmayib");
+                    return;
+                }
+            }
             humanResourceManager.GetEmployees();
         }
         static void GetEmployeesByDepartment(ref HumanResourceManager humanResourceManager)
         {
-            foreach (Department item in humanResourceManager.Departments)
+            if(humanResourceManager.Departments.Length == 0)
             {
-                Console.WriteLine(item.Name);
+                Console.WriteLine("Ilk once departament elave edin ... ");
+                return;
+            }
+            else
+            {
+                foreach (Department item in humanResourceManager.Departments)
+                {
+                    Console.WriteLine(item.Name);
+                }
             }
             Console.WriteLine("Iscilerini gormek istediyiniz departmentin adini daxil edin :");
             string departmentName = Console.ReadLine();
@@ -317,6 +333,11 @@ namespace ConsoleApp1
                 int say = 0;
                 foreach (Department item in humanResourceManager.Departments)
                 {
+                    if(item.Employees.Length == 0)
+                    {
+                        Console.WriteLine("Hecbir isci elave edilmeyib");
+                        return;
+                    }
                     foreach (Employee item2 in item.Employees)
                     {
                         if (item != null && departmentName.ToLower() == item.Name.ToLower())
@@ -401,6 +422,17 @@ namespace ConsoleApp1
             }
             Console.WriteLine("deyisdirmek istediyiniz iscinin nomrensini daxil edin : ");
             string no = Console.ReadLine();
+            foreach(Department item in humanResourceManager.Departments)
+            {
+                foreach (Employee item2 in item.Employees)
+                {
+                    if(no.ToLower() != item2.No.ToLower())
+                    {
+                        Console.WriteLine("Daxil etdiyiniz nomre yalnisidir ... ");
+                        return;
+                    }
+                }
+            }
 
             Console.WriteLine("Iscinin yeni vezifesini daxil edin : ");
             string position = Console.ReadLine();

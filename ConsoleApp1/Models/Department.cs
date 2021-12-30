@@ -15,9 +15,10 @@ namespace ConsoleApp1.Models
 
         public int iscisayi;
 
+        public double OrtaSal;
         public Employee[] Employees = new Employee[0];
 
-
+        
 
         public Department(string name, int workerlimit, double salarylimit)
         {
@@ -27,15 +28,16 @@ namespace ConsoleApp1.Models
         }
         public double CalcSalaryAverage()
         {
-            double OrtaSal = 0;
+            double Ortasal = 0;
             foreach (Employee item in Employees)
             {
-                if (item!= null && item.DepartmentName == Name)
+                if (item != null && item.DepartmentName == Name)
                 {
-                    OrtaSal += item.Salary;
+                    Ortasal += item.Salary;
                 }
             }
-            return OrtaSal;
+            OrtaSal = Ortasal;
+            return Ortasal;
         }
 
         public override string ToString()
@@ -49,7 +51,7 @@ namespace ConsoleApp1.Models
                 }
             }
             return $"Departamentin adi : {Name}\n" +
-                $"Iscilerin sayi : {iscisayi}";
+                $"Iscilerin sayi : {iscisayi}/{WorkerLimit}";
         }
     }
 }

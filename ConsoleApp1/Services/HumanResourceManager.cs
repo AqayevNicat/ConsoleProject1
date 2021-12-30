@@ -27,13 +27,21 @@ namespace ConsoleApp1.Services
         {
             foreach (Department item in _Departments)
             {
-                Console.WriteLine($"{item}\nOrtalama maas : {item.CalcSalaryAverage()}\n----------------------");
+                Console.WriteLine($"{item}\nOrtalama maas : {item.CalcSalaryAverage()}/{item.SalaryLimit}\n----------------------");
             }
         }
         public void EditDepartaments(string oldName, string newName)
         {
             foreach (Department item in _Departments)
             {
+                    foreach (Employee item2 in item.Employees)
+                    {
+                        if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
+                        {
+                            item2.DepartmentName = newName;
+                            item2.noName = item2.DepartmentName.Substring(0, 2).ToUpper();
+                        }
+                    }
                 if (item != null && item.Name.ToLower()==oldName)
                 {
                     item.Name = newName;
@@ -81,8 +89,6 @@ namespace ConsoleApp1.Services
                 }
             }
             return employee;
-
-
         }
         public void RemoveEmployee(string no, string departmentname)
         {
@@ -104,7 +110,7 @@ namespace ConsoleApp1.Services
             {
                 foreach (Employee item2 in item.Employees)
                 {
-                    if (item2.No.ToLower() == no.ToLower())
+                    if (item2 != null && item2.No.ToLower() == no.ToLower())
                     {
                         item2.Position = position;
                         item2.Salary = salary;
