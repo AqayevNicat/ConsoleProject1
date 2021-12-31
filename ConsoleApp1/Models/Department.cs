@@ -36,11 +36,14 @@ namespace ConsoleApp1.Models
                     Ortasal += item.Salary;
                 }
             }
-            OrtaSal = Ortasal;
+            Ortasal /= WorkerCount();
+            if(WorkerCount() == 0)
+            {
+                Ortasal = 0;
+            }
             return Ortasal;
         }
-
-        public override string ToString()
+        public int WorkerCount()
         {
             iscisayi = Employees.Length;
             foreach (Employee item in Employees)
@@ -50,8 +53,13 @@ namespace ConsoleApp1.Models
                     iscisayi--;
                 }
             }
-            return $"Departamentin adi : {Name}\n" +
-                $"Iscilerin sayi : {iscisayi}/{WorkerLimit}";
+            return iscisayi;
+        }
+
+        public override string ToString()
+        {
+            
+            return $"Departamentin adi : {Name}\n";
         }
     }
 }

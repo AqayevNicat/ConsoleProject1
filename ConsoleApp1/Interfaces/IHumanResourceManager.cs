@@ -10,7 +10,7 @@ namespace ConsoleApp1.Models
     {
         Department[] Departments { get; }
         void AddDepartment(string name, int workerlimit, double salarylimit);
-        void GetDepartments();
+        Department[] GetDepartments();
         void EditDepartaments(string oldName, string newName);
         void AddEmployee(string fullname, string position, double salary, string departmentname);
         void RemoveEmployee(string no, string departmentname);

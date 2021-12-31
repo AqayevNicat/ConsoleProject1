@@ -23,28 +23,32 @@ namespace ConsoleApp1.Services
             Array.Resize(ref _Departments, _Departments.Length + 1);
             _Departments[_Departments.Length - 1] = department;
         }
-        public void GetDepartments() 
+        public Department[] GetDepartments() 
         {
+            Department[] departments = new Department[0];
             foreach (Department item in _Departments)
             {
-                Console.WriteLine($"{item}\nOrtalama maas : {item.CalcSalaryAverage()}/{item.SalaryLimit}\n----------------------");
+                Array.Resize(ref departments, departments.Length + 1);
+                departments[departments.Length - 1] = item;
             }
+            return departments;
         }
         public void EditDepartaments(string oldName, string newName)
         {
             foreach (Department item in _Departments)
             {
-                foreach (Employee item2 in item.Employees)
+                if (item.Name.ToLower() == oldName)
                 {
-                    if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
+                    foreach (Employee item2 in item.Employees)
                     {
-                        item2.DepartmentName = newName;
-
-                        if (item.Name.ToLower() == oldName)
+                        if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
                         {
-                            item.Name = newName;
+                            item2.DepartmentName = newName;
+
+
                         }
                     }
+                    item.Name = newName;
                 }
             }
         }
