@@ -12,11 +12,11 @@ namespace ConsoleApp1.Services
         public Department[] Departments => _Departments;
         private Department[] _Departments;
 
-
         public HumanResourceManager()
         {
             _Departments = new Department[0];
         }
+        #region Departments
         public void AddDepartment(string name, int workerlimit, double salarylimit)
         {
             Department department = new Department(name, workerlimit, salarylimit);
@@ -44,14 +44,15 @@ namespace ConsoleApp1.Services
                         if (item2 != null && item2.DepartmentName.ToLower() == item.Name.ToLower())
                         {
                             item2.DepartmentName = newName;
-
-
                         }
                     }
                     item.Name = newName;
                 }
             }
         }
+        #endregion
+
+        #region Employees
         public void AddEmployee(string fullname, string position, double salary, string departmentname)
         {
             Employee employee = new Employee(fullname, position, salary, departmentname);
@@ -125,5 +126,6 @@ namespace ConsoleApp1.Services
                 }
             }
         }
+        #endregion
     }
 }

@@ -14,7 +14,7 @@ namespace ConsoleApp1.Models
         public string FullName { get; set; }
         public string Position { get; set; }
         public double Salary { get; set; }
-        public string DepartmentName;
+        public string DepartmentName { get; set; }
 
         public Employee(string fullname, string position, double salary, string departmentName)
         {
@@ -31,7 +31,7 @@ namespace ConsoleApp1.Models
                 $"FullName : {FullName}\n" +
                 $"Position : {Position}\n" +
                 $"Salary : {Salary}\n" +
-                $"Department : {DepartmentName}\n-----------------";
+                $"Department : {DepartmentName}\n-------------------------------|";
         }
     }
 }
